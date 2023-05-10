@@ -1,0 +1,138 @@
+<!--
+ Copyright (c) 2014, 2023, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+<div class="oj-hybrid-padding">
+  <div class="oj-panel oj-sm-margin-4x-top oj-sm-padding-4x oj-panel-shadow-sm">
+    <h4>Identificación de Defunción</h4>
+    <oj-form-layout max-columns=2 direction="row">
+      <oj-label for="departamento" show-required="true">Departamento</oj-label>
+      <oj-combobox-one id="departamento" placeholder="Digite el código o nombre del departamento">
+        <a slot="end" id="search-button" class="demo-search-button icon-search oj-clickable-icon-nocontext"
+          style="width: 32px;" role="button" aria-label="search" ></a> 
+      </oj-combobox-one>
+      <oj-label for="inscripcion" show-required="true">Año de Inscripción</oj-label>
+      <oj-input-text id="inscripcion" placeholder="Digite el año de inspcripción"></oj-input-text>
+      <oj-label for="municipio" show-required="true">Municipio</oj-label>
+      <oj-combobox-one id="municipio" placeholder="Digite el código o el nombre del municipio de residencia">
+        <a slot="end" id="search-button" class="demo-search-button icon-search oj-clickable-icon-nocontext"
+          style="width: 32px;" role="button" aria-label="search" ></a> 
+      </oj-combobox-one>
+      <oj-label for="acta" show-required="true">Número de Acta</oj-label>
+      <oj-input-text id="acta" placeholder="Digite el número de acta"></oj-input-text>
+    </oj-form-layout>
+    
+    <div class="oj-flex oj-sm-flex-items-initial oj-sm-justify-content-flex-end" >
+      <div class="oj-flex-item oj-sm-padding-2x-horizontal">
+        <oj-button id='cargar'>Cargar</oj-button>
+        <oj-button id='nuevo'>Nuevo</oj-button>
+        <oj-button id='buscar'>Buscar</oj-button>
+      </div>
+    </div>
+  </div>
+
+  <div class="oj-panel oj-sm-margin-4x-top oj-sm-padding-4x oj-panel-shadow-sm">
+    <div class="oj-panel oj-sm-margin-4x-top oj-sm-padding-4x oj-panel-shadow-sm">
+      <h4>Datos Personales del Difunto</h4>
+      <oj-form-layout max-columns=3 direction="row">
+        <oj-label for="primerApellido" show-required="true">Primer Apellido</oj-label>
+        <oj-input-text id="primerApellido" placeholder="Digite el primer apellido del difunto"></oj-input-text>
+        <oj-label for="segundoApellido" show-required="true">Segundo Apellido</oj-label>
+        <oj-input-text id="segundoApellido" placeholder="Digite el segundo apellido del difunto"></oj-input-text>
+        <oj-label for="nombres" show-required="true">Nombres</oj-label>
+        <oj-input-text id="nombres" placeholder="Digite los nombres del difunto"></oj-input-text>
+        <oj-label for="sexo" show-required="true">Sexo</oj-label>
+        <oj-radioset id="sexo" value="sexo" class='oj-choice-direction-row'>
+          <oj-option value="mujer">Mujer</oj-option>
+          <oj-option value="hombre">Hombre</oj-option>
+        </oj-radioset>
+        <oj-label for="fechaNacimiento" show-required="true">Fecha de Nacimiento</oj-label>
+        <oj-input-date id="fechaNacimiento" placeholder="dd/mm/yyyy"></oj-input-date>
+        <oj-label for="estadoCivil" show-required="true">Estado Civil</oj-label>
+        <oj-combobox-one id="estadoCivil" placeholder="Seleccione el estado civil" options="[[estadoCivilSel]]" ></oj-combobox-one>
+        <oj-label for="ocupacion" show-required="true">Ocupación</oj-label>
+        <oj-combobox-one id="ocupacion" placeholder="Digite el código o nombre de la profesión del difunto">
+          <a slot="end" id="search-button" class="demo-search-button icon-search oj-clickable-icon-nocontext"
+            style="width: 32px;" role="button" aria-label="search" ></a> 
+        </oj-combobox-one>
+      </oj-form-layout>  
+    </div>
+
+    <div class="oj-panel oj-sm-margin-4x-top oj-sm-padding-4x oj-panel-shadow-sm">
+      <h4 class="oj-sm-margin-4x-top">Datos de Residencia del Difunto</h4>
+      <oj-form-layout max-columns=3 direction="row">
+        <oj-label for="paisResidencia" show-required="true">País de residencia</oj-label>
+        <oj-combobox-one id="paisResidencia" placeholder="Digite el código o nombre del país de residencia">
+          <a slot="end" id="search-button" class="demo-search-button icon-search oj-clickable-icon-nocontext"
+            style="width: 32px;" role="button" aria-label="search" ></a> 
+        </oj-combobox-one>
+        <oj-label for="departamentoResidencia" show-required="true">Departamento de residencia</oj-label>
+        <oj-combobox-one id="departamentoResidencia" placeholder="Digite el código o nombre del departamento de residencia">
+          <a slot="end" id="search-button" class="demo-search-button icon-search oj-clickable-icon-nocontext"
+            style="width: 32px;" role="button" aria-label="search" ></a> 
+        </oj-combobox-one>
+        <oj-label for="municipioResidencia" show-required="true">Municipio de residencia</oj-label>
+        <oj-combobox-one id="municipioResidencia" placeholder="Digite el código o nombre del municipio de residencia">
+          <a slot="end" id="search-button" class="demo-search-button icon-search oj-clickable-icon-nocontext"
+            style="width: 32px;" role="button" aria-label="search" ></a> 
+        </oj-combobox-one>
+        <oj-label for="divisionMunicipal" show-required="true">División municipal</oj-label>
+        <oj-combobox-one id="divisionMunicipal" placeholder="Digite el código o nombre de la división municipal">
+          <a slot="end" id="search-button" class="demo-search-button icon-search oj-clickable-icon-nocontext"
+            style="width: 32px;" role="button" aria-label="search" ></a> 
+        </oj-combobox-one>
+        <oj-label for="direccionResidencia" show-required="true">Dirección de residencia</oj-label>
+        <oj-input-text id="direccionResidencia" placeholder="Ingrese la dirección de residencia"></oj-input-text>
+      </oj-form-layout>  
+    </div>
+
+    <div class="oj-panel oj-sm-margin-4x-top oj-sm-padding-4x oj-panel-shadow-sm">
+      <h4 class="oj-sm-margin-4x-top">Compañero/a del Hogar</h4>
+      <oj-form-layout max-columns=2 direction="row">
+        <oj-label for="numeroIdentificacionCom" show-required="true">Número de Identificación</oj-label>
+        <oj-input-text id="numeroIdentificacionCom" placeholder="Ingrese el número de identificación"></oj-input-text>
+        <div class="oj-flex oj-sm-flex-items-initial" >
+          <div class="oj-flex-item oj-sm-padding-2x-horizontal">
+            <oj-button id='cargarCom'>Cargar</oj-button>
+            <oj-button id='buscarCom'>Buscar</oj-button>
+          </div>
+        </div>
+        <oj-label for="nacionalidadCom" show-required="true">Nacionalidad del Compañero de Hogar</oj-label>
+        <oj-combobox-one id="nacionalidadCom" placeholder="Digite el código o nombre del la nacionalidad">
+          <a slot="end" id="search-button" class="demo-search-button icon-search oj-clickable-icon-nocontext"
+            style="width: 32px;" role="button" aria-label="search" ></a> 
+        </oj-combobox-one>
+        <oj-label for="nombreCompletoCom" show-required="true">Nombres y Apellidos del Compañero del Hogar</oj-label>
+        <oj-input-text id="nombreCompletoCom" placeholder="Ingrese el nombre completo del compañero del hogar"></oj-input-text>
+        <oj-label for="estatusVivencia" show-required="true">Estatus de Vivencia</oj-label>
+        <oj-combobox-one id="estatusVivencia" placeholder="Digite el código o nombre del estatus de vivencia">
+          <a slot="end" id="search-button" class="demo-search-button icon-search oj-clickable-icon-nocontext"
+            style="width: 32px;" role="button" aria-label="search" ></a> 
+        </oj-combobox-one>
+      </oj-form-layout>  
+    </div>
+
+    <div class="oj-panel oj-sm-margin-4x-top oj-sm-padding-4x oj-panel-shadow-sm">
+      <h4 class="oj-sm-margin-4x-top">Acciones</h4>
+      <div class="oj-flex oj-sm-flex-items-initial oj-sm-justify-content-space-around" >
+        <div class="oj-flex-item oj-sm-padding-2x-horizontal">
+          <oj-button id='imagenesActa'>Imagenes de actas</oj-button>
+          <oj-button id='cancelarActa'>Cancelar Actas</oj-button>
+          <oj-button id='activarActa'>Activar Actas</oj-button>
+        </div>
+      </div>
+    </div>
+
+    <div class="oj-flex oj-sm-flex-items-initial oj-sm-justify-content-flex-end" >
+      <div class="oj-flex-item oj-sm-padding-2x-horizontal">
+        <oj-button id='guardar'>Guardar</oj-button>
+        <oj-label for="numeroRecibo" show-required="true">Número recibo</oj-label>
+        <oj-input-text id="numeroRecibo"></oj-input-text>
+        <oj-button id='imprimir'>Imprimir</oj-button>
+        <oj-button id='cancelar'>Cancelar</oj-button>
+      </div>
+    </div>
+  </div>
+  
+</div>

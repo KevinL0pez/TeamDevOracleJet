@@ -1,0 +1,182 @@
+<div id="miFormLayoutContainer" class="oj-panel oj-sm-margin-2x oj-panel-shadow-md">
+  <div class="oj-panel oj-sm-margin-2x oj-panel-shadow-md">
+    <h2>Identificacion de Defuncion</h2>
+
+    <oj-form-layout max-columns='3' label-edge='inside' label-width="80%" direction="row">
+
+      <oj-input-text id="departamento" required="[[isRequired]]"
+        placeholder="digite el codigo o nombre del departamento" label-hint="Departamento" label-edge="inside">
+      </oj-input-text>
+
+      <oj-input-text id="anioInscripcion" required="[[isRequired]]" placeholder="digite el año de inscripcion"
+        label-hint="Año de Inscripcion" label-edge="inside">
+      </oj-input-text>
+
+      <div>
+        <oj-button data-bind="click: ocultarContenido">Cargar</oj-button>
+        <oj-button data-bind="click: mostrarContenido">Nuevo</oj-button>
+
+      </div>
+
+      <oj-input-text id="input" required="[[isRequired]]" placeholder="digite el codigo o nombre del municipio"
+        label-hint="Municipio" label-edge="inside">
+      </oj-input-text>
+
+      <oj-input-text id="input" required="[[isRequired]]" placeholder="digite el numero de acta"
+        label-hint="Numero de Acta" label-edge="inside">
+      </oj-input-text>
+
+    </oj-form-layout>
+
+  </div>
+  <oj-form-layout id="formulario" data-bind="visible: formulario">
+    <div class="oj-panel oj-sm-margin-2x oj-panel-shadow-md">
+      <h2>Datos Personales del Difunto</h2>
+
+      <oj-form-layout max-columns='3' label-edge='inside' label-width="80%" direction="row">
+
+        <oj-input-text id="primerApellido" required="[[isRequired]]" placeholder="digite el primer apellido del difunto"
+          label-hint="Primer Apellido" label-edge="inside">
+        </oj-input-text>
+
+        <oj-input-text id="input" required="[[isRequired]]" placeholder="digite el segundo apellido del difunto"
+          label-hint="Segundo Apellido" label-edge="inside">
+        </oj-input-text>
+
+        <oj-input-text id="input" required="[[isRequired]]" placeholder="digite los nombres del difunto"
+          label-hint="Nombres" label-edge="inside">
+        </oj-input-text>
+
+        <oj-radioset id="radioSetId" required='[[isRequired]]' label-hint="Sexo" label-edge="inside"
+          class="oj-choice-direction-row">
+          <oj-option id="womenopt" value="women">Mujer</oj-option>
+          <oj-option id="menopt" value="men">Hombre</oj-option>
+        </oj-radioset>
+
+        <oj-input-date id="datepicker" value="{{dateValue}}" required="[[isRequired]]" label-hint="Fecha de Nacimiento"
+          label-edge="inside">
+        </oj-input-date>
+
+        <oj-select-single id="selectcomp" value='{{selectVal}}' data="[[estadoCivilDP]]" required="[[isRequired]]"
+          label-hint="Estado Civil" label-edge="inside">
+        </oj-select-single>
+
+        <oj-input-text id="input" required="[[isRequired]]" placeholder="digite el codigo o nombre de la profesion"
+          label-hint="Ocupacion" label-edge="inside">
+        </oj-input-text>
+
+      </oj-form-layout>
+    </div>
+    <div class="oj-panel oj-sm-margin-2x oj-panel-shadow-md">
+      <h2>Datos de Residencia del Difunto</h2>
+
+      <oj-form-layout max-columns='2' label-edge='inside' label-width="80%" direction="row">
+        <!-- este es un comentario -->
+        <oj-input-text id="input" required="[[isRequired]]" placeholder="340 - Honduras" label-hint="Pais de Residencia"
+          label-edge="inside">
+        </oj-input-text>
+
+        <oj-input-text id="input" required="[[isRequired]]" placeholder="01 - Atlantida"
+          label-hint="Departamento de Residencia" label-edge="inside">
+        </oj-input-text>
+
+        <oj-input-text id="input" required="[[isRequired]]" placeholder="01 - La Ceiba"
+          label-hint="Municipio de Residencia" label-edge="inside">
+        </oj-input-text>
+
+        <oj-input-text id="input" required="[[isRequired]]" placeholder="01 - SUBA" label-hint="Division Municipal"
+          label-edge="inside">
+        </oj-input-text>
+
+        <oj-input-text id="input" required="[[isRequired]]" placeholder="Calle 18 #45-78" label-hint="Direccion"
+          label-edge="inside">
+        </oj-input-text>
+
+
+      </oj-form-layout>
+    </div>
+    <div class="oj-panel oj-sm-margin-2x oj-panel-shadow-md">
+      <h2>Compañero/a del Hogar</h2>
+
+      <oj-form-layout max-columns='2' label-edge='inside' label-width="80%" direction="row">
+
+        <oj-input-text id="input" required="[[isRequired]]" placeholder="1124578464"
+          label-hint="Numero de Identificacion" label-edge="inside">
+        </oj-input-text>
+        <div>
+          <oj-button id='button1'>Cargar</oj-button>
+          <oj-button id='button1'>Buscar</oj-button>
+        </div>
+
+        <oj-input-text id="input" required="[[isRequired]]" placeholder="digite el codigo o nombre de la nacionalidad"
+          label-hint="Nacionalidad del compañero de hogar" label-edge="inside">
+        </oj-input-text>
+
+        <oj-input-text id="input" required="[[isRequired]]" placeholder="digite el nombre completo"
+          label-hint="Nombres y Apellidos del compañero de hogar" label-edge="inside">
+        </oj-input-text>
+
+        <oj-input-text id="input" required="[[isRequired]]" placeholder="00 - se ignora"
+          label-hint="Estatus de Vivencia" label-edge="inside">
+        </oj-input-text>
+
+      </oj-form-layout>
+    </div>
+  </oj-form-layout>
+
+</div>
+
+<div class="oj-panel oj-sm-margin-2x oj-panel-shadow-md" id="formulario" data-bind="visible: formulario">
+
+  <h2>Acciones</h2>
+  <div class="oj-flex oj-sm-flex-items-initial oj-sm-justify-content-center">
+    <div class="oj-flex-item">
+      <oj-button id='imagenesActas'>Imagenes de Actas</oj-button>
+    </div>
+    <div class="oj-flex-item">
+      <oj-button id='cancelarActas'>Cancelar Actas</oj-button>
+    </div>
+    <div class="oj-flex-item">
+      <oj-button id='activarActas'>Activar Actas</oj-button>
+    </div>
+  </div>
+
+</div>
+
+<!-- <div direction="row" class="oj-sm-margin-2x" style="background-color: blueviolet;">
+  <div class="oj-sm-margin-2x" style="background-color: rgb(214, 0, 0); width: 25%;">color</div>
+  <div class="oj-sm-margin-2x" style="background-color: rgb(240, 142, 31); width: 25%;">color</div>
+  <div class="oj-sm-margin-2x" style="background-color: rgb(15, 176, 240); width: 25%;">color</div>
+  <div class="oj-sm-margin-2x" style="background-color: rgb(25, 240, 6); width: 25%;">color</div>
+</div> -->
+
+<div class="oj-sm-margin-4x" id="formulario" data-bind="visible: formulario">
+  <div class="oj-flex oj-sm-flex-items-initial oj-sm-justify-content-space-between">
+
+    <div class="oj-flex-item">
+      <oj-dialog id="myDialog" initial-visibility="hide" cancel-behavior="icon">
+        <div slot="body">
+          <!-- contenido de la ventana modal -->
+          <h1>hola</h1>
+        </div>
+      </oj-dialog>
+      <button type="submit">Guardar</button>
+      <!-- <oj-button on-oj-action="[[datosGuardados]]">Guardar</oj-button> -->
+    </div>
+
+
+
+    <div class="oj-flex oj-sm-flex-items-initial oj-sm-justify-content-flex-end">
+      <div class="oj-flex-item">
+        <oj-input-text id="numeroRecibo" label-hint="Numero de recibo" label-edge="inside"
+          style="max-width:15em;"></oj-input-text>
+      </div>
+      <div class="oj-flex-item">
+        <oj-button id='imprimir'>Imprimir</oj-button>
+      </div>
+      <div class="oj-flex-item">
+        <oj-button data-bind="click: resetForm">Cancelar</oj-button>
+      </div>
+    </div>
+  </div>
+</div>

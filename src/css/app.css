@@ -1,0 +1,69 @@
+/*
+    Document   : override
+    Created on : <date>
+    Author     : <author>
+    Description:
+        This is where any of your application specific styles should be included
+*/
+
+.sendOffScreen {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.grafica {
+  width: 100%;
+}
+
+.titulo-identificacion {
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 27px;
+  color: #2A303A;
+}
+
+oj-button.oj-default.oj-button-full-chrome.oj-hover.oj-button-button  {
+  background:  orange !important;
+  border-color: brown !important;
+  border-radius: 4px;
+  color: white !important;
+  font-weight: 500;
+}
+
+oj-button.oj-default.oj-button-full-chrome .oj-button-button {
+  background:  orange !important;
+  border-color: brown !important;
+  border-radius: 4px;
+  color: white !important;
+  font-weight: 500;
+}
+
+.contenedorLineas {
+  display: flex;
+  width: 100%;
+}
+
+.contenedorLineas > div.rojo { height: 10px; background: #D81800; width: 100%; }
+.contenedorLineas > div.naranja { height: 10px; background: #ECB621; width: 100%; }
+.contenedorLineas > div.azul { height: 10px; background: #5293F6; width: 100%; }
+.contenedorLineas > div.verde { height: 10px; background: #559E3F; width: 100%; }
+
+.contenedorAcciones {
+  display: flex;
+  width: 100%;
+  flex-wrap: nowrap;
+  margin-top: 2rem;
+}
+
+.contendorGuardar {
+  width: 35%;
+  padding-left: 2rem;
+}
+
+.contenedorNumeroRecibo {
+  width: 65%;
+}

@@ -1,0 +1,22 @@
+{
+  "name": "pruebas-oracle",
+  "version": "1.0.0",
+  "description": "An Oracle JavaScript Extension Toolkit(JET) web app",
+  "scripts": {
+    "dev": "src/server/app.js"
+  },
+  "dependencies": {
+    "@oracle/oraclejet": "~8.2.0",
+    "cors": "^2.8.5",
+    "express-list-endpoints": "^6.0.0",
+    "oracledb": "^5.5.0"
+  },
+  "devDependencies": {
+    "@oracle/oraclejet-tooling": "~8.2.0",
+    "express": "^4.17.1"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "private": true
+}

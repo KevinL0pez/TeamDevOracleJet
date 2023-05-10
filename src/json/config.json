@@ -1,0 +1,9 @@
+{
+  "isSecure": false,
+  "host": "localhost",
+  "port": "80",
+  "endpoints": {
+    "getEstadoCivil": "obtener/getEstadoCivil",
+    "postPersons": "registro/registroDif"
+  }
+}

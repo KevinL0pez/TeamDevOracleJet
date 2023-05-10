@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<!--
+ Copyright (c) 2014, 2020, Oracle and/or its affiliates.
+ The Universal Permissive License (UPL), Version 1.0
+ -->
+
+<!-- ************************ IMPORTANT INFORMATION ************************************
+  This web basic template is provided as an example of how to configure
+  a JET web application.  It contains the Oracle JET framework and a default
+  requireJS configuration file to show how JET can be setup in a common application.
+  This project template can be used in conjunction with demo code from the JET
+  website to test JET component behavior and interactions.
+
+  Any CSS styling with the prefix "demo-" is for demonstration only and is not
+  provided as part of the JET framework.
+
+  Please see the demos under Cookbook/Patterns/App Shell: Web and the CSS documentation
+  under Support/API Docs/Non-Component Styling on the JET website for more information on how to use 
+  the best practice patterns shown in this template.
+
+  Aria Landmark role attributes are added to the different sections of the application
+  for accessibility compliance. If you change the type of content for a specific
+  section from what is defined, you should also change the role value for that
+  section to represent the appropriate content type.
+  ***************************** IMPORTANT INFORMATION ************************************ -->
+<html lang="en-us">
+
+<head>
+  <title>Oracle JET Starter Template - Web Basic</title>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1">
+  <link rel="icon" href="css/images/favicon.ico" type="image/x-icon" />
+
+  <!-- This is the main css file for the default Alta theme -->
+  <!-- injector:theme -->
+  <!--
+  Este tema esta obsoleto y se recomienda no utilizarlo, se recomienda
+  utilizar el tema de redwood, en el archivo de oracljetconfig.json
+  se cambio el tema por defecto (ver si se debe referenciar en esta parte
+  en reemplazo de del tema alta).
+  -->
+  <!--<link rel="stylesheet" href="css/libs/oj/v8.2.0/alta/oj-alta-min.css" type="text/css" />-->
+  <!-- endinjector -->
+  <!-- This contains icon fonts used by the starter template -->
+  <link rel="stylesheet" href="css/demo-alta-site-min.css" type="text/css" />
+
+  <!-- This is where you would add any app specific styling -->
+  <link rel="stylesheet" href="css/app.css" type="text/css" />
+
+</head>
+
+<body class="oj-web-applayout-body">
+  <div id="globalBody" class="oj-web-applayout-page">
+    <!--
+         ** Oracle JET V8.2.0 web application header pattern.
+         ** Please see the demos under Cookbook/Patterns/App Shell: Web
+         ** and the CSS documentation under Support/API Docs/Non-Component Styling
+         ** on the JET website for more information on how to use this pattern.
+      -->
+    <header role="banner" class="oj-web-applayout-header">
+      <div class="oj-web-applayout-max-width oj-flex-bar oj-sm-align-items-center">
+        <div class="oj-flex-bar-middle oj-sm-align-items-baseline">
+          <span role="img" class="oj-icon demo-oracle-icon" title="Oracle Logo" alt="Oracle Logo"></span>
+          <h1 class="oj-sm-only-hide oj-web-applayout-header-title" title="Application Name"><oj-bind-text
+              value="[[appName]]"></oj-bind-text></h1>
+        </div>
+        <div class="oj-flex-bar-end">
+          <!-- Responsive Toolbar -->
+          <oj-toolbar>
+            <oj-menu-button id="userMenu" display="[[smScreen() ? 'icons' : 'all']]" chroming="half">
+              <span><oj-bind-text value="[[userLogin]]"></oj-bind-text></span>
+              <span slot="endIcon"
+                :class="[[{'oj-icon demo-appheader-avatar': smScreen(), 'oj-component-icon oj-button-menu-dropdown-icon': !smScreen()}]]"></span>
+              <oj-menu id="menu1" slot="menu" style="display:none">
+                <oj-option id="pref" value="pref">Preferencias</oj-option>
+                <oj-option id="help" value="help">Ayuda</oj-option>
+                <oj-option id="about" value="about">Acerca de</oj-option>
+                <oj-option id="out" value="out">Cerrar sesión</oj-option>
+              </oj-menu>
+            </oj-menu-button>
+          </oj-toolbar>
+        </div>
+      </div>
+    </header>
+
+    <div role="main" class="oj-web-applayout-max-width oj-web-applayout-content">
+
+      <div class="sombra">
+        <h2>Identificación de defunción</h2>
+        <oj-form-layout id="form-uno" max-columns="2" direction="column" class="oj-formlayout-full-width">
+
+          <oj-input-text id="input-departamento" label-hint="[[inputDepartamentoLabel]]"
+            value="{{inputDepartamentoValue}}" required>
+            <oj-button slot="end" display="icons" chroming="borderless">
+              Button Icon
+              <span slot="startIcon" class="oj-ux-ico-email" role="img" title="email"></span>
+            </oj-button>
+          </oj-input-text>
+          <oj-input-text id="input-municipio" label-hint="Municipio" value="{{inputMunicipioValue}}"
+            required></oj-input-text>
+          <oj-input-number id="inputNumber-año-inscripcion" value="{{inputInscripcionValue}}"
+            label-hint="Año de inscripción" min="0" max="3000" required></oj-input-number>
+          <oj-input-number id="inputNumber-numero-acta" label-hint="Numero de acta" value="{{inputActaValue}}"
+            required></oj-input-number>
+
+          <div class="oj-sm-align-self-end container">
+            <oj-button class="boton" id="boton-cargar">Cargar</oj-button>
+            <oj-button class="boton" id="boton-nuevo">Nuevo</oj-button>
+            <oj-button class="boton" id="boton-buscar">Buscar</oj-button>
+
+          </div>
+        </oj-form-layout>
+
+      </div>
+
+      <div class="sombra contenido">
+        <h2>Datos personales del Difunto</h2>
+        <oj-validation-group :id="[[formValidationGroupId]]" valid="{{groupValid}}">
+          <oj-form-layout id="form-dos" max-columns="3" direction="row" class="oj-formlayout-full-width">
+            <oj-input-text id="input-primer-apellido" label-hint="Primer Apellido" value="{{inputPapellidoValue}}"
+              validators="[[inputPrimerApellidoValidator]]"
+              on-raw-value-changed="[[onInputPrimerApellidoValueChange]]"></oj-input-text>
+            <oj-input-text id="input-segundo-apellido" label-hint="Segundo Apellido" value="{{inputSapellidoValue}}"
+              required></oj-input-text>
+            <oj-input-text id="input-nombres" value="{{inputNombresValue}}" label-hint="Nombres"></oj-input-text>
+            <oj-radioset id="enabledRadioset" value="{{inputGeneroValue}}" label-hint="Sexo"
+              class="oj-choice-direction-row">
+              <oj-option value="Mujer">Mujer</oj-option>
+              <oj-option value="Hombre">Hombre</oj-option>
+            </oj-radioset>
+            <oj-input-date id="input-fecha-nacimiento" label-hint="Fecha de nacimiento" autocomplete="off"
+              value="{{inputFechaNacimientoValue}}" converter="[[dateConverter]]"
+              on-raw-value-changed="[[oninputFechaNacimientoValueChange]]">
+            </oj-input-date>
+            <oj-select-single data="[[estadoCivilDP]]" value="{{inputEstadoCivilValue}}" label-hint="Estado civil">
+            </oj-select-single>
+
+            <!--<oj-combobox-one id="combobox1" value="{{inputEstadoCivilValue}}" label-hint="Estado civil"
+                label-edge="inside" options="[[options]]">
+                <oj-option value="Casado">Casado</oj-option>
+                <oj-option value="Soltero">Soltero</oj-option>
+                <oj-option value="Unión libre">Union libre</oj-option>
+              </oj-combobox-one>-->
+            <oj-input-text id="input-ocupacion" class="oj-form-control-full-width" label-hint="Ocupacion"
+              value="{{inputOcupacionValue}}"></oj-input-text>
+          </oj-form-layout>
+        </oj-validation-group>
+        <span id="namevalid">
+          <oj-bind-text value="[[groupValid]]"></oj-bind-text>
+        </span>
+        <span><oj-bind-text value="[[inputFechaNacimientoValue]]"></oj-bind-text></span>
+        <span><oj-bind-text value="[[inputEstadoCivilValue]]"></oj-bind-text></span>
+      </div>
+
+
+      <div class="sombra contenido">
+        <h2>Datos de residencia del difunto</h2>
+        <oj-validation-group id="formValidationId" valid="{{groupValid}}">
+          <oj-form-layout id="form-tres" max-columns="3" direction="row" class="oj-formlayout-full-width">
+            <oj-input-text id="input-pais-residencia" label-hint="Pais de residencia"
+              value="{{inputPaisRValue}}"></oj-input-text>
+            <oj-input-text id="input-departamento-residencia" label-hint="Departamento de residencia"
+              value="{{inputDepartamentoRValue}}"></oj-input-text>
+            <oj-input-text id="input-municipio-residencia" label-hint="Municipio de residencia"
+              value="{{inputMunicipioRValue}}"></oj-input-text>
+            <oj-input-text id="input-divicion-residencia" label-hint="Divicion municipal" autocomplete="off"
+              value="{{inputDivicionMValue}}"></oj-input-text>
+          </oj-form-layout>
+        </oj-validation-group>
+      </div>
+
+      <div class="sombra contenido">
+        <h2>Compañero/a del hogar</h2>
+        <oj-form-layout id="form-cuatro" max-columns="2" direction="row" class="oj-formlayout-full-width">
+          <oj-input-number id="input-identificacion" label-hint="Numero de identificacion"
+            value="{{inputIdentificacionRValue}}"></oj-input-number>
+          <div class="containerBoton ">
+            <oj-button class="boton" id="boton-cargar">Cargar</oj-button>
+            <oj-button class="boton" id="boton-buscar-compañero">Buscar</oj-button>
+          </div>
+          <oj-input-text id="input-nacionalidad" label-hint="Nacionalidad compañero del hogar"
+            value="{{inputNacionalidadCValue}}"></oj-input-text>
+          <oj-input-text id="input-nombres-compañero" label-hint="Nombres y apellidos del compañero/a del hogar"
+            value="{{inputNombresCRValue}}"></oj-input-text>
+          <oj-input-text id="input-estatus" label-hint="Estatus de vivencia" autocomplete="off"
+            value="{{inputEstatusCValue}}"></oj-input-text>
+        </oj-form-layout>
+
+        <h2>Acciones</h2>
+        <oj-buttonset class="oj-flex oj-sm-flex-items-initial oj-sm-justify-content-center">
+          <oj-button class="boton" id="boton-imagenes-actas">Imagenes de actas</oj-button>
+          <oj-button class="boton" id="boton-cancelar-actas">Cancelar actas</oj-button>
+          <oj-button class="boton" id="boton-activar-actas">Activar actas</oj-button>
+        </oj-buttonset>
+
+        <oj-button class="boton" on-oj-action="[[onRegisterButton]]">
+          <span>
+            <oj-bind-text value="[[createButtonLabel]]"></oj-bind-text>
+          </span>
+        </oj-button>
+      </div>
+
+
+      <!-- Messages -->
+      <oj-messages class="oj-color-invert" messages="[[messagesDataprovider]]" position="[[positionMessage]]"
+        display="notification" display-options.category="none">
+      </oj-messages>
+
+    </div>
+
+
+  </div>
+
+  <div>
+    <footer class="oj-web-applayout-footer" role="contentinfo" <div>
+      Copyright © 2023.
+  </div>
+  </footer>
+  </div>
+
+  <script type="text/javascript" src="js/libs/require/require.js"></script>
+  <script type="text/javascript" src="js/main.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,26 @@
+/*
+    Document   : override
+    Created on : <date>
+    Author     : <author>
+    Description:
+        This is where any of your application specific styles should be included
+*/
+.container {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
+
+.boton {
+  margin-right: 20px;
+  background-color: rgb(255, 203, 106);
+}
+
+.sombra {
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+  padding: 5px 20px 0px 20px;
+}
+
+.contenido {
+  display: none;
+}

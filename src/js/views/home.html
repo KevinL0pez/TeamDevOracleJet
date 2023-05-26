@@ -23,7 +23,7 @@
                             placeholder='Digite el código nombre del departamento'
                             help.instruction="Digite el código nombre del departamento"
                             required
-                        ></oj-input-text>
+                    ></oj-input-text>
                         <!-- <span><i class="fa fa-search"></i></span> -->
                     </div>
                     
@@ -195,7 +195,9 @@
                             label-hint="País de residencia"
                             placeholder='País de residencia'
                             required
-                        ></oj-select-single>
+                        >
+                        <a slot="end" id="search-button" class="demo-search-button icon-search oj-clickable-icon-nocontext" style="width: 32px;" role="button" aria-label="search" ></a> 
+                    </oj-select-single>
                         
                         <oj-select-single 
                             id="departamentoResidencia"

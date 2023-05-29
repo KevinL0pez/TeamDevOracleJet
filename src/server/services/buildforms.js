@@ -260,12 +260,34 @@ const obtenerAllDepartments = async () => {
       const sql = `SELECT p.*, r.CODE AS ALIVECODE, r.ID AS ALIVEID, r.INE AS ALIVEINE, r.NAME AS ALIVENAME, r.STATE AS ALIVESTATE,
       rw.CODE AS READANDWRITECODE, rw.ID AS READANDWRITEID, rw.INE AS READANDWRITEINE, rw.NAME AS READANDWRITENAME, rw.STATE AS READANDWRITESTATE,
       idtp.CODE AS IDENTIFICATIONTYPECODE, idtp.ID AS IDENTIFICATIONTYPEID, idtp.NAME AS IDENTIFICATIONTYPENAME, idtp.STATE AS IDENTIFICATIONTYPESTATE,
-      twd.CODE AS TOWNDIVISIONCODE, twd.ID AS TOWNDIVISIONID, twd.CITYID AS TOWNDIVISIONCITYID, twd.NAME AS TOWNDIVISIONNAME, twd.TOWNID AS TOWNDIVISIONTOWNID, rw.STATE AS TOWNDIVISIONSTATE
+      twd.CODE AS TOWNDIVISIONCODE, twd.ID AS TOWNDIVISIONID, twd.CITYID AS TOWNDIVISIONCITYID, twd.NAME AS TOWNDIVISIONNAME, twd.TOWNID AS TOWNDIVISIONTOWNID, rw.STATE AS TOWNDIVISIONSTATE,
+      ct.CODE AS COUNTRYCODE, ct.ID AS COUNTRYID, ct.NAME AS COUNTRYNAME, ct.NATIONALITY AS COUNTRYNATIONALITY, ct.STATE AS COUNTRYSTATE,
+      tw.CODE AS TOWNRESIDENCECODE, tw.ID AS TOWNRESIDENCEID, tw.DEPARTAMENTID as TOWNRESIDENCEDEPARTAMENTID, tw.NAME AS TOWNRESIDENCENAME, tw.STATE AS TOWNRESIDENCESTATE,
+      ctr.CODE AS COUNTRYRESIDENCECODE, ctr.ID AS COUNTRYRESIDENCEID, ctr.NAME AS COUNTRYRESIDENCENAME, ctr.NATIONALITY AS COUNTRYRESIDENCENATIONALITY, ctr.STATE AS COUNTRYRESIDENCESTATE,
+      dpt.CODE AS DEPARTAMENTRESIDENCECODE, dpt.COUNTRYCODE AS DEPARTAMENTRESIDENCECOUNTRYCODE, dpt.ID AS DEPARTAMENTRESIDENCEID, dpt.NAME AS DEPARTAMENTRESIDENCENAME, dpt.STATE AS DEPARTAMENTRESIDENCESTATE,
+      atb.CODE AS ACTIVITYATBIRTHCODE, atb.ID AS ACTIVITYATBIRTHID, atb.INE AS ACTIVITYATBIRTHINE, atb.NAME AS ACTIVITYATBIRTHNAME, atb.STATE AS ACTIVITYATBIRTHSTATE,
+      mst.CODE AS CONJUGALSTATECODE, mst.ID AS CONJUGALSTATEID, mst.INE AS CONJUGALSTATEINE, mst.NAME AS CONJUGALSTATENAME, mst.STATE AS CONJUGALSTATESTATE,
+      msts.CODE AS MARITALSTATUSCODE, msts.ID AS MARITALSTATUSID, msts.INE AS MARITALSTATUSINE, msts.NAME AS MARITALSTATUSNAME, msts.STATE AS MARITALSTATUSSTATE,
+      ocpt.CODE AS OCCUPATIONCODE, ocpt.ID AS OCCUPATIONID, ocpt.NAME AS OCCUPATIONNAME, ocpt.STATE AS OCCUPATIONSTATE,
+      ocptcat.CODE AS OCCUPATIONALCATEGORYCODE, ocptcat.ID AS OCCUPATIONALCATEGORYID, ocptcat.INE AS OCCUPATIONALCATEGORYINE, ocptcat.NAME AS OCCUPATIONALCATEGORYNAME, ocptcat.STATE AS OCCUPATIONALCATEGORYSTATE,
+      ppgp.CODE AS POPULATIONGROUPCODE, ppgp.ID AS POPULATIONGROUPID, ppgp.INE AS POPULATIONGROUPINE, ppgp.NAME AS POPULATIONGROUPNAME, ppgp.STATE AS POPULATIONGROUPSTATE,
+      stlvl.CODE AS STUDYLEVELCODE, stlvl.ID AS STUDYLEVELID, stlvl.INE AS STUDYLEVELINE, stlvl.NAME AS STUDYLEVELNAME, stlvl.STATE AS STUDYLEVELSTATE
       FROM PERSON p
       INNER JOIN STATEOFLIFE r ON p.ALIVE = r.ID
       INNER JOIN READANDWRITE rw ON p.READANDWRITE = rw.ID
       INNER JOIN IDENTIFICATIONTYPE idtp ON p.IDENTIFICATIONTYPE = idtp.ID
-      INNER JOIN TOWNDIVISION twd ON p.TOWNDIVISIONRESIDENCE = twd.ID`;
+      INNER JOIN TOWNDIVISION twd ON p.TOWNDIVISIONRESIDENCE = twd.ID
+      INNER JOIN COUNTRY ct ON p.NATIONALITY = ct.ID
+      INNER JOIN TOWN tw ON p.TOWNRESIDENCE = tw.ID
+      INNER JOIN COUNTRY ctr ON p.COUNTRYRESIDENCE = ctr.ID
+      INNER JOIN DEPARTAMENT dpt ON p.DEPARTAMENTRESIDENCE = dpt.ID
+      INNER JOIN ACTIVITYATBIRTH atb ON p.ACTIVITYATBIRTH = atb.ID
+      INNER JOIN MARITALSTATE mst ON p.CONJUGALSTATE = mst.ID
+      INNER JOIN MARITALSTATE msts ON p.MARITALSTATUS = msts.ID
+      INNER JOIN OCCUPATION ocpt ON p.OCCUPATION = ocpt.ID
+      INNER JOIN OCCUPATIONALCATEGORY ocptcat ON p.OCCUPATIONALCATEGORY = ocptcat.ID
+      INNER JOIN POPULATIONGROUP ppgp ON p.POPULATIONGROUP = ppgp.ID
+      INNER JOIN STUDYLEVEL stlvl ON p.STUDYLEVEL = stlvl.ID`;
 
       const result = await connection.execute(sql);
 
@@ -350,6 +372,169 @@ const obtenerAllDepartments = async () => {
           delete item.TOWNDIVISIONNAME;
           delete item.TOWNDIVISIONSTATE;
           item.TOWNDIVISIONRESIDENCE = townDivision;
+        }
+        if(item.NATIONALITY) {
+          const nationality = {
+            CODE: item.COUNTRYCODE,
+            ID: item.COUNTRYID,
+            NAME: item.COUNTRYNAME,
+            NATIONALITY: item.COUNTRYNATIONALITY,
+            STATE: item.COUNTRYSTATE
+          };
+          delete item.COUNTRYCODE;
+          delete item.COUNTRYID;
+          delete item.COUNTRYNATIONALITY;
+          delete item.COUNTRYNAME;
+          delete item.COUNTRYSTATE;
+          item.NATIONALITY = nationality;
+        }
+        if(item.TOWNRESIDENCE) {
+          const townResidence = {
+            CODE: item.TOWNRESIDENCECODE,
+            DEPARTMENTID: item.TOWNRESIDENCEDEPARTAMENTID,
+            ID: item.TOWNRESIDENCEID,
+            NAME: item.TOWNRESIDENCENAME,
+            STATE: item.TOWNRESIDENCESTATE
+          };
+          delete item.TOWNRESIDENCECODE;
+          delete item.TOWNRESIDENCEID;
+          delete item.TOWNRESIDENCEDEPARTAMENTID;
+          delete item.TOWNRESIDENCENAME;
+          delete item.TOWNRESIDENCESTATE;
+          item.TOWNRESIDENCE = townResidence;
+        }
+        if(item.COUNTRYRESIDENCE) {
+          const countryResidence = {
+            CODE: item.COUNTRYRESIDENCECODE,
+            ID: item.COUNTRYRESIDENCEID,
+            NAME: item.COUNTRYRESIDENCENAME,
+            NATIONALITY: item.COUNTRYRESIDENCENATIONALITY,
+            STATE: item.COUNTRYRESIDENCESTATE
+          };
+          delete item.COUNTRYRESIDENCECODE;
+          delete item.COUNTRYRESIDENCEID;
+          delete item.COUNTRYRESIDENCENATIONALITY;
+          delete item.COUNTRYRESIDENCENAME;
+          delete item.COUNTRYRESIDENCESTATE;
+          item.COUNTRYRESIDENCE = countryResidence;
+        }
+        if(item.DEPARTAMENTRESIDENCE) {
+          const departamentResidence = {
+            CODE: item.DEPARTAMENTRESIDENCECODE,
+            COUNTRYCODE: item.DEPARTAMENTRESIDENCECOUNTRYCODE,
+            ID: item.DEPARTAMENTRESIDENCEID,
+            NAME: item.DEPARTAMENTRESIDENCENAME,
+            STATE: item.DEPARTAMENTRESIDENCESTATE
+          };
+          delete item.DEPARTAMENTRESIDENCECODE;
+          delete item.DEPARTAMENTRESIDENCEID;
+          delete item.DEPARTAMENTRESIDENCECOUNTRYCODE;
+          delete item.DEPARTAMENTRESIDENCENAME;
+          delete item.DEPARTAMENTRESIDENCESTATE;
+          item.DEPARTAMENTRESIDENCE = departamentResidence;
+        }
+        if(item.ACTIVITYATBIRTH) {
+          const activityatbirth = {
+            CODE: item.ACTIVITYATBIRTHCODE,
+            ID: item.ACTIVITYATBIRTHID,
+            INE: item.ACTIVITYATBIRTHINE,
+            NAME: item.ACTIVITYATBIRTHNAME,
+            STATE: item.ACTIVITYATBIRTHSTATE
+          };
+          delete item.ACTIVITYATBIRTHCODE;
+          delete item.ACTIVITYATBIRTHID;
+          delete item.ACTIVITYATBIRTHINE;
+          delete item.ACTIVITYATBIRTHNAME;
+          delete item.ACTIVITYATBIRTHSTATE;
+          item.ACTIVITYATBIRTH = activityatbirth;
+        }
+        if(item.CONJUGALSTATE) {
+          const conjugalstate = {
+            CODE: item.CONJUGALSTATECODE,
+            ID: item.CONJUGALSTATEID,
+            INE: item.CONJUGALSTATEINE,
+            NAME: item.CONJUGALSTATENAME,
+            STATE: item.CONJUGALSTATESTATE
+          };
+          delete item.CONJUGALSTATECODE;
+          delete item.CONJUGALSTATEID;
+          delete item.CONJUGALSTATEINE;
+          delete item.CONJUGALSTATENAME;
+          delete item.CONJUGALSTATESTATE;
+          item.CONJUGALSTATE = conjugalstate;
+        }
+        if(item.MARITALSTATUS) {
+          const maritalStatus = {
+            CODE: item.MARITALSTATUSCODE,
+            ID: item.MARITALSTATUSID,
+            INE: item.MARITALSTATUSINE,
+            NAME: item.MARITALSTATUSNAME,
+            STATE: item.MARITALSTATUSSTATE
+          };
+          delete item.MARITALSTATUSCODE;
+          delete item.MARITALSTATUSID;
+          delete item.MARITALSTATUSINE;
+          delete item.MARITALSTATUSNAME;
+          delete item.MARITALSTATUSSTATE;
+          item.MARITALSTATUS = maritalStatus;
+        }
+        if(item.OCCUPATION) {
+          const occupation = {
+            CODE: item.OCCUPATIONCODE,
+            ID: item.OCCUPATIONID,
+            NAME: item.OCCUPATIONNAME,
+            STATE: item.OCCUPATIONSTATE
+          };
+          delete item.OCCUPATIONCODE;
+          delete item.OCCUPATIONID;
+          delete item.OCCUPATIONNAME;
+          delete item.OCCUPATIONSTATE;
+          item.OCCUPATION = occupation;
+        }
+        if(item.OCCUPATIONALCATEGORY) {
+          const occupationalCategory = {
+            CODE: item.OCCUPATIONALCATEGORYCODE,
+            ID: item.OCCUPATIONALCATEGORYID,
+            INE: item.OCCUPATIONALCATEGORYINE,
+            NAME: item.OCCUPATIONALCATEGORYNAME,
+            STATE: item.OCCUPATIONALCATEGORYSTATE
+          };
+          delete item.OCCUPATIONALCATEGORYCODE;
+          delete item.OCCUPATIONALCATEGORYID;
+          delete item.OCCUPATIONALCATEGORYINE;
+          delete item.OCCUPATIONALCATEGORYNAME;
+          delete item.OCCUPATIONALCATEGORYSTATE;
+          item.OCCUPATIONALCATEGORY = occupationalCategory;
+        }
+        if(item.POPULATIONGROUP) {
+          const populationGroup = {
+            CODE: item.POPULATIONGROUPCODE,
+            ID: item.POPULATIONGROUPID,
+            INE: item.POPULATIONGROUPINE,
+            NAME: item.POPULATIONGROUPNAME,
+            STATE: item.POPULATIONGROUPSTATE
+          };
+          delete item.POPULATIONGROUPCODE;
+          delete item.POPULATIONGROUPID;
+          delete item.POPULATIONGROUPINE;
+          delete item.POPULATIONGROUPNAME;
+          delete item.POPULATIONGROUPSTATE;
+          item.POPULATIONGROUP = populationGroup;
+        }
+        if(item.STUDYLEVEL) {
+          const studyLevel = {
+            CODE: item.STUDYLEVELCODE,
+            ID: item.STUDYLEVELID,
+            INE: item.STUDYLEVELINE,
+            NAME: item.STUDYLEVELNAME,
+            STATE: item.STUDYLEVELSTATE
+          };
+          delete item.STUDYLEVELCODE;
+          delete item.STUDYLEVELID;
+          delete item.STUDYLEVELINE;
+          delete item.STUDYLEVELNAME;
+          delete item.STUDYLEVELSTATE;
+          item.STUDYLEVEL = studyLevel;
         }
 
       });

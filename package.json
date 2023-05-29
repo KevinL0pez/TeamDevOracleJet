@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "An Oracle JavaScript Extension Toolkit(JET) web app",
   "scripts": {
-    "dev": "node src/server/connection.js"
+    "dev": "nodemon src/server/connection.js"
   },
   "dependencies": {
     "@oracle/oraclejet": "~8.2.0",
